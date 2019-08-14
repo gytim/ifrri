@@ -5,16 +5,16 @@
 
 ### Ansible
 Скрипты и настройки для разворачивания находятся(и инструкция как это выглядит)
-[https://github.com/gytim/ifrri/ifrri-ansible/](https://github.com/gytim/ifrri/ifrri-ansible/)
+[https://github.com/gytim/ifrri/ifrri-ansible/](https://github.com/gytim/ifrri/tree/master/ifrri-ansible/)
 
 ### DOCKER SWARM
 Файлы для разворачивания, используемые выше находятся
-[https://github.com/gytim/ifrri/ifrri-swarm/](https://github.com/gytim/ifrri/ifrri-swarm/)
+[https://github.com/gytim/ifrri/ifrri-swarm/](https://github.com/gytim/ifrri/tree/master/ifrri-swarm/)
 
 
 ### source dockerfile
 Недостающие docker образы
-[https://github.com/gytim/ifrri/docker-files/](https://github.com/gytim/ifrri/docker-files/)
+[https://github.com/gytim/ifrri/ifrri-docker-files/](https://github.com/gytim/ifrri/tree/master/ifrri-docker-files/)
 
 
 
@@ -35,7 +35,7 @@
 5. Запуск 
 
 #### Использование
-[127.0.0.1:8000](127.0.0.1:8000)
+[127.0.0.1:80](127.0.0.1:80)
 
 По умолчанию web на 8000
 
