@@ -1,0 +1,9 @@
+# file: group_vars/deb
+---
+
+ansible_connection: ssh
+ansible_ssh_user: vagrant
+ansible_ssh_pass: vagrant
+ansible_port: 4022
+
+

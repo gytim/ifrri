@@ -1,0 +1,89 @@
+---
+- name: Deploy iffri node for centos 7
+  hosts: rpm
+  become: yes
+
+  tasks:
+  - name: Upgrade all packages
+    yum:
+      name: '*'
+      state: latest
+      
+  - name: Install packages for docker
+    yum:
+      name:
+        - epel-release
+        - unzip
+        - git
+        - wget
+        - python
+      state: present
+
+  - name: get docker rep
+    get_url: 
+      url: https://download.docker.com/linux/centos/docker-ce.repo 
+      dest: /etc/yum.repos.d/docker.repo      
+      
+  - name: Install pip
+    yum:
+      name:
+        - python3-pip
+      state: latest
+
+
+  - name: install the package, force upgrade
+    pip: 
+      name: pip3
+      state: latest
+
+  - name: Install docker
+    pip:
+      name: docker-ce
+      state: latest
+      
+  - name: Enable and start docker
+    systemd:
+      name: docker
+      enabled: true
+      state: started      
+
+  - name: Create work dir to git rep
+    file:
+      path: /opt/i-free/test0
+      state: directory
+      mode: '0755'
+
+  - name: Download git repo
+    git: 
+      repo: 'https://github.com/gytim/ifrri'
+      dest: /opt/i-free/test0
+
+
+  - name: Grant permission to build stolonctl
+    file:
+      path: /opt/i-free/test0/ifrri-swarm/deploy_stolonctl.sh
+      mode: u+rwx,g-wx,o-rwx
+
+  - name: build stolonctl
+    shell: /opt/i-free/test0/ifrri-swarm/deploy_stolonctl.sh
+    args:
+      chdir: /opt/i-free/test0/ifrri-swarm
+      
+      
+  - firewalld:
+      service: https
+      permanent: yes
+      state: enabled
+
+  - name: Grant permission to swarm init
+    file:
+      path: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh
+      mode: u+rwx,g-wx,o-rwx
+      
+  - name: Run baby ^)
+    shell: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh >> /opt/i-free/test0/log.txt
+    args:
+      chdir: /opt/i-free/test0/ifrri-swarm
+
+ 
+

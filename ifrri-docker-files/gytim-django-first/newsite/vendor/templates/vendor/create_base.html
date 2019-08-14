@@ -1,0 +1,14 @@
+{% extends 'vendor/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">       
+        <h3>Site not found base. Do you want create base?</h3>
+    </div>
+</div>
+<div class="container mb-3">
+    <div class="row">
+        <a href="{% url 'create_base' %}"><button type="button" class="btn btn-danger mr-3">Create</button></a>
+    </div>
+</div>
+{% endblock %} 

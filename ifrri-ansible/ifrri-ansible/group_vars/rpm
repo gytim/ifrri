@@ -1,0 +1,10 @@
+# file: group_vars/rpm
+---
+
+ansible_connection: ssh
+ansible_ssh_user: vagrant
+ansible_ssh_pass: vagrant
+ansible_port: 3022
+ansible_sudo_pass: vagrant
+
+

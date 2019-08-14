@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+# django WEB_1
+  django:
+    image: gytim/gytim-django-first   
+    networks:
+      - web
+    ports:
+      - 80:8000         
+    deploy:
+      replicas: 2
+         
+networks:
+  web:
+    driver: overlay
+    driver_opts:
+      encrypted: "true"
+    internal: true
+

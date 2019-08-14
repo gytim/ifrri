@@ -1,0 +1,46 @@
+---
+- name: Install basic package for using vagrant command on centos 7
+  hosts: rpm
+  become: yes
+  
+  tasks:
+  - name: Create dir for mount cdrom
+    file:
+      path: /media/cdrom
+      state: directory
+      mode: '0755'
+      
+  - name: Mount cdrom
+    shell: mount -r /dev/cdrom /media/cdrom
+    
+  - name: Install epel
+    yum:
+      name:        
+        - epel-release
+      state: present
+    
+  - name: Install build tools
+    yum:
+      name: "@Development tools"
+      state: present
+    
+  - name:   
+    shell: uname -r
+    ignore_errors: yes
+    register: uname_result
+          
+  - name: Install packages
+    yum: 
+       name:
+          - gcc 
+          - kernel-headers 
+          - dkms 
+          - make 
+          - bzip2 
+          - perl
+          - open-vm-tools
+          - kernel-devel-{{ uname_result.stdout }}
+          
+  - name: Run V_B_Guest
+    shell: /media/cdrom/VBoxLinuxAdditions.run
+        

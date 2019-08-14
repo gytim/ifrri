@@ -1,0 +1,9 @@
+[rpm]
+centos0 ansible_host=gytim.sknt.ru ansible_connection=ssh
+
+[deb]
+ubuntu0 ansible_host=gytim.sknt.ru ansible_connection=ssh
+
+[ssh:children]
+rpm
+deb

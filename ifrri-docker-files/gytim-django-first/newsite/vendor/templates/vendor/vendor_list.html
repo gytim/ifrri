@@ -1,0 +1,49 @@
+{% extends 'vendor/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-end">
+        <h1 class="col-3">
+            Vendors table
+        </h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <a href="{% url 'vendor_new' %}"><button type="button" class="btn btn-success mr-3">Add</button></a>
+        <!--<button type="button" class="btn btn-outline-danger" href="#">Delete</button>-->
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Kind</th>
+                <th scope="col">Country</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for vendor in vendors %}
+            <tr>
+                <th scope="row">
+                    <div class="vendor">
+                        <a href="{% url 'vendor_detail' pk=vendor.pk %}">{{ vendor.name }}</a>
+                    </div>
+                </th>
+                <td>
+                    {{ vendor.kind }}
+                </td>
+                <td>
+                    {{ vendor.country }}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

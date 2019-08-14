@@ -1,0 +1,95 @@
+---
+- name: deploy iffri node for ubuntu 16.04
+  hosts: deb
+  become: yes
+
+  tasks:
+  - name: upgrade all packages
+    apt:
+      name: '*'
+      update_cache: latest
+
+  - name: install packages for docker
+    apt:
+      name:
+        - unzip
+        - git
+        - golang
+        - apt-transport-https
+        - software-properties-common
+        - ca-certificates
+      state: present
+
+  - name: docker gpg key
+    shell: wget https://download.docker.com/linux/ubuntu/gpg && apt-key add gpg
+    
+  - name: add rep docker
+    shell: echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable" >> /etc/apt/sources.list
+         
+  tasks:
+  - name: upgrade all packages
+    apt:
+      name: '*'
+      update_cache: latest
+      
+  - name: install packages for docker
+    apt:
+      name:
+        - docker-ce    
+        
+  - name: install pip
+    apt:
+      name:
+        - python-pip
+      state: present
+
+  - name: install docker-compose
+    pip:
+      name: docker-compose
+      state: present
+
+  - name: Enable and start docker
+    systemd:
+      name: docker
+      enabled: true
+      state: started      
+
+  - name: Create work dir to git rep
+    file:
+      path: /opt/i-free/test0
+      state: directory
+      mode: '0755'
+
+  - name: Download git repo
+    git: 
+      repo: 'https://github.com/gytim/ifrri'
+      dest: /opt/i-free/test0
+
+
+  - name: Grant permission to build stolonctl
+    file:
+      path: /opt/i-free/test0/ifrri-swarm/deploy_stolonctl.sh
+      mode: u+rwx,g-wx,o-rwx
+
+  - name: build stolonctl
+    shell: /opt/i-free/test0/ifrri-swarm/deploy_stolonctl.sh
+    args:
+      chdir: /opt/i-free/test0/ifrri-swarm
+      
+      
+  - firewalld:
+      service: https
+      permanent: yes
+      state: enabled
+
+  - name: Grant permission to swarm init
+    file:
+      path: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh
+      mode: u+rwx,g-wx,o-rwx
+      
+  - name: Run baby ^)
+    shell: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh >> /opt/i-free/test0/log.txt
+    args:
+      chdir: /opt/i-free/test0/ifrri-swarm
+
+
