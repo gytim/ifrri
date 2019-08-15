@@ -11,4 +11,4 @@ chmod +x bin/stolonctl
 
 cp -R bin /opt/i-free/test0/ifrri-swarm/ifrri-swarm
 cd ..
-rm -R stolon
+#rm -R stolon

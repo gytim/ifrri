@@ -16,31 +16,50 @@
         - unzip
         - git
         - wget
-        - python
       state: present
 
-  - name: get docker rep
-    get_url: 
-      url: https://download.docker.com/linux/centos/docker-ce.repo 
-      dest: /etc/yum.repos.d/docker.repo      
-      
-  - name: Install pip
+#  - name: get docker rep
+#    get_url: 
+#      url: https://download.docker.com/linux/centos/docker-ce.repo 
+#      dest: /etc/yum.repos.d/docker.repo      
+   
+  - name: Install python
     yum:
       name:
-        - python3-pip
+        - python2-pip
+        - docker
       state: latest
 
+#  - name: check python 3
+#    shell: scl enable rh-python36 bash
 
-  - name: install the package, force upgrade
-    pip: 
-      name: pip3
-      state: latest
+#  - name: install the package, force upgrade
+#    pip: 
+#      name: pip3
+#      state: latest
 
-  - name: Install docker
-    pip:
-      name: docker-ce
+#  - name: install the package, force upgrade
+#    pip:
+#      name: pip
+#      executable: pip3
+#      state: latest
+
+  - name: Install packages for docker
+    yum:
+      name:
+        - python-setuptools
       state: latest
       
+  - name: Install docker and swarm
+    pip:
+      name: 
+        - docker
+      state: latest
+         
+  - name: all daemons reload
+    systemd:
+      daemon_reload: yes
+ 
   - name: Enable and start docker
     systemd:
       name: docker
@@ -55,7 +74,7 @@
 
   - name: Download git repo
     git: 
-      repo: 'https://github.com/gytim/ifrri'
+      repo: 'https://github.com/gytim/ifrri.git'
       dest: /opt/i-free/test0
 
 
@@ -82,8 +101,8 @@
       
   - name: Run baby ^)
     shell: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh >> /opt/i-free/test0/log.txt
-    args:
-      chdir: /opt/i-free/test0/ifrri-swarm
+#    args:
+#      chdir: /opt/i-free/test0/ifrri-swarm
 
  
 

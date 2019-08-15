@@ -1,7 +1,7 @@
 #!/bin/bash
 # Инициализация всех нод
 
-cd /opt/i-free/test0/ifrri-swarm/ifrri-swarm
+cd /opt/i-free/test0/ifrri-swarm
 
 docker init swarm
 
