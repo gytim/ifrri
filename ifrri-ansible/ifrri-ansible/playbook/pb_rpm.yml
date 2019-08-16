@@ -1,5 +1,5 @@
 ---
-- name: Deploy iffri node for centos 7
+- name: Deploy ifrri node for centos 7
   hosts: rpm
   become: yes
 
