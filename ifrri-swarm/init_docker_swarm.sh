@@ -3,7 +3,7 @@
 
 cd /opt/i-free/test0/ifrri-swarm/ifrri-swarm
 
-docker init swarm
+docker swarm init
 
 docker stack deploy --compose-file docker-compose_web.yml web
 docker stack deploy --compose-file docker-compose-etcd.yml etcd
