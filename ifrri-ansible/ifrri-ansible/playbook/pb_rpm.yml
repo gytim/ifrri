@@ -17,32 +17,12 @@
         - git
         - wget
       state: present
-
-#  - name: get docker rep
-#    get_url: 
-#      url: https://download.docker.com/linux/centos/docker-ce.repo 
-#      dest: /etc/yum.repos.d/docker.repo      
-   
+ 
   - name: Install python
     yum:
       name:
         - python2-pip
-        - docker
       state: latest
-
-#  - name: check python 3
-#    shell: scl enable rh-python36 bash
-
-#  - name: install the package, force upgrade
-#    pip: 
-#      name: pip3
-#      state: latest
-
-#  - name: install the package, force upgrade
-#    pip:
-#      name: pip
-#      executable: pip3
-#      state: latest
 
   - name: Install packages for docker
     yum:
@@ -50,12 +30,15 @@
         - python-setuptools
       state: latest
       
-  - name: Install docker and swarm
-    pip:
-      name: 
-        - docker
-      state: latest
-         
+  - name: Download sh docker-ce
+    get_url:
+      url: hhttps://get.docker.com/
+      dest: /opt/docker-ce.sh
+      mode: '0775'
+      
+  - name: install docker-ce
+    shell: /opt/docker-ce.sh
+
   - name: all daemons reload
     systemd:
       daemon_reload: yes
@@ -88,7 +71,6 @@
     args:
       chdir: /opt/i-free/test0/ifrri-swarm
       
-      
   - firewalld:
       service: https
       permanent: yes
@@ -101,8 +83,3 @@
       
   - name: Run baby ^)
     shell: /opt/i-free/test0/ifrri-swarm/init_docker_swarm.sh >> /opt/i-free/test0/log.txt
-#    args:
-#      chdir: /opt/i-free/test0/ifrri-swarm
-
- 
-

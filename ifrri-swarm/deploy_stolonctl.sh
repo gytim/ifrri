@@ -9,6 +9,7 @@ chmod +x build
 ./build
 chmod +x bin/stolonctl
 
-cp -R bin /opt/i-free/test0/ifrri-swarm/ifrri-swarm
+mkdir /opt/i-free/test0/ifrri-swarm/ifrri-swarm/bin
+cp bin/stolonctl /opt/i-free/test0/ifrri-swarm/ifrri-swarm/bin/stolonctl
 cd ..
 #rm -R stolon
