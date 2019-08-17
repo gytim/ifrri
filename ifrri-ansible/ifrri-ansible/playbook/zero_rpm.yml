@@ -44,3 +44,7 @@
   - name: Run V_B_Guest
     shell: /media/cdrom/VBoxLinuxAdditions.run
         
+  - name: Reboot
+    shell: nohup bash -c «sleep 2s && reboot» &
+    ignore_errors: true
+    register: reboot
