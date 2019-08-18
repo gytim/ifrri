@@ -1,6 +1,8 @@
 #!/bin/bash
 # Скрипт по сборке stolonctl используемого для инициализации
 
+cd /opt/i-free/test0/ifrri-swarm
+
 mkdir stolon
 git clone https://github.com/sorintlab/stolon.git stolon
 
